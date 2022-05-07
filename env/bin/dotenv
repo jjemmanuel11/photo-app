@@ -1,4 +1,4 @@
-#!/Users/emmanuelnidea/Desktop/CS396/photo-app/env/bin/python3
+#!/Users/emmanuelnidea/Desktop/CS396/photo_app_lab/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
