@@ -1,0 +1,525 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+/************************************** NAVIGATION STUFF **************************************/
+button {
+    background: none;
+    border: 0;
+}
+textarea {
+    background: none;
+    border: 0;
+    outline: none;
+    resize: none;
+}
+textarea[type="text"] {
+    width: 525px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    position:fixed;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    background-color: white;
+    padding: 8px;
+    border-bottom: solid rgb(211, 211, 211) 1px;
+}
+
+#Navigation h1 {
+    margin: 0px;
+    margin-left: 5%;
+    font-family: 'Comfortaa', cursive;
+}
+
+#Navigation section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 5%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Navigation section p {
+    padding: 2px;
+    margin: 5px;
+}
+
+
+/************************************** SUGGESTION STUFF **************************************/
+#suggestions {
+    width: 350px;
+    margin-top: 63px;
+    padding: 8px;
+    padding-top: 0px;
+    font-family: 'Open Sans', sans-serif;
+    position: fixed;
+    margin-left: 700px;
+}
+
+#my_profile {
+    display: flex;
+    font-size: 2em;
+    align-items: center;
+    padding-left: 3%;
+    font-family: 'Comfortaa', cursive;
+    height: 108px;
+}
+
+#my_profile h2 {
+    margin: 0px;
+    padding: 3px;
+    padding-top: 0px;
+    margin-left: 8px;
+    font-size: 1em;
+}
+
+#my_profile img {
+    width: 70px;
+    height: 70px;
+    padding: 3px;
+    border-radius: 50%;
+}
+
+#other_profiles {
+    padding: 10px;
+    padding-top: 0px;
+}
+
+#suggestion {
+    margin: 0px;
+    color: rgb(84, 83, 83);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    padding-top: 3px;
+}
+
+.profile_follow {
+    display: flex;
+    align-items: center;
+    padding: 3px;
+}
+
+.profile_follow img {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.profile_follow .blue {
+    margin-left: 40px;
+}
+
+.profile_follow section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4px;
+    margin-left: 5px;
+}
+.profile_follow section .username{
+    width: 125px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile_follow button {
+    padding: 5px;
+    box-sizing: initial;
+    border-radius: 5px;
+}
+
+.profile_follow section p {
+    padding: 2px;
+    margin: 0px;
+}
+
+.profile_follow section :not(.grey) {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
+.Unfollow {
+    background-color: white;
+    border-width: 1.5px;
+    border-style:solid;
+    border-color: rgb(226,226,227);
+}
+
+/************************************** FEED STUFF **************************************/
+
+#feed {
+    /* width: 800px; */
+    width: 40em;
+    margin-right: 320px;
+}
+
+/* stories */
+#stories {
+    display: flex;   
+    font-family: 'Open Sans', sans-serif;
+    font-size: .7em;
+    padding: 8px;
+    background-color: white;
+    border: solid rgb(211, 211, 211) 1px;
+    margin-top: 63px;
+    overflow: hidden;
+    border-radius: 7px 7px 7px 7px;
+}
+
+#stories section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 8px;
+}
+
+#stories section p {
+    margin: 0px 5px 0px 5px;
+    padding: 3px;
+    width: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+#stories section img {
+    width: 50px;
+    height: 50px;
+    background: #f09433; 
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+    border-radius: 50%;
+    margin: 5px;
+    padding: 3px;
+    /* border: solid rgb(211, 211, 211) 3px; */
+}
+/* posts */
+
+#posts {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: white;
+    margin-top: 20px;
+    border: solid rgb(211, 211, 211) 1px;
+    border-radius: 7px 7px 7px 7px;
+}
+
+.post .header {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.post .header h2 {
+    margin: 0px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.4em;
+}
+
+.post img {
+    width: 100%;
+}
+
+.Liked {
+    color:rgb(207,12,12);
+}
+
+.comments_description {
+    padding: 8px;
+    padding-top: 0px;
+    padding-left: 0px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: .9em;
+}
+
+.comments_description .react {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    padding-top:0px;
+    align-items: center;
+}
+
+.comments_description .react section {
+    padding: 5px;
+}
+
+
+.comments_description .react :not(section) {
+    padding: 5px;
+    font-size: 1.15em;
+}
+
+.comments_description .likes {
+    margin: 0px;
+    margin-left: 16px;
+    padding: 3px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
+.comments_description *{
+    margin: 0px;
+}
+
+.comments {
+    padding: 8px;
+    padding-bottom: 0px;
+    margin-left: 8px;
+}
+
+.caption {
+    padding: 8px;
+    margin-left: 8px;
+    padding-bottom: 0px;
+}
+
+.comment {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.comments .grey{
+    font-size: .9em;
+    margin-bottom: 7px;
+}
+
+.comment p {
+    padding: 3px;
+}
+
+.bold,.bolded {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
+.add_comment {
+    display: flex;
+    align-items: center;
+}
+
+.add_comment {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    font-family: 'Open Sans', sans-serif;
+    border-top: solid rgb(211, 211, 211) 1px;
+}
+
+.add_comment section {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.add_comment section p {
+    margin: 0px;
+    padding: 2px;
+    margin-left: 5px;
+    width: 400px;
+    margin-right: 15px;
+    font-size: 1em;
+}
+
+.add_comment > p {
+    margin: 0px;
+    margin-right: 10px;
+    padding: 2px;
+}
+.add_comment i {
+    padding: 5px;
+}
+
+
+/************************************** MODAL STUFF **************************************/
+
+/* .modal-bg * {
+    border: solid;
+    border-radius: 2px;
+} */
+
+.modal-bg {
+    background: rgba(50, 50, 50, 0.8);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#modal-comments p {
+    font-family:'Open Sans', sans-serif;
+    font-size: .9em;
+}
+
+.modal-comment {
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-comment section {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    justify-content:space-between;
+    width: 60%;
+}
+
+.modal-comment img,.modal-comment button{
+    margin-top:8px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.modal-comment p {
+    margin:0px;
+    margin-bottom: 10px;
+}
+
+.modal-body {
+    background: black;
+    width: 60em;
+    height: 40em;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow: hidden;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.modal-body > :not(#modal-panel) {
+    height:100%;
+    display: flex;
+    align-items: center;
+}
+.modal-body > :not(#modal-panel) > img {
+    width: 100%;
+}
+
+
+#modal-panel {
+    background-color: white;
+    max-height: calc(100vh);
+    overflow-y: auto;
+    width: 50%;
+    height: 100%;
+}
+
+#modal-panel img{
+    border-radius:50%;
+}
+
+#modal-profile {
+    display: flex;
+    align-items: center;
+    position:fixed;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    background-color: white;
+    border-bottom: solid rgb(211, 211, 211) 1px;
+    position: sticky;
+    top: -1px;
+    padding-left:16px;
+    font-family: 'Comfortaa', cursive;
+}
+
+
+#modal-profile h2 {
+    margin-left: 10px;
+}
+
+#modal-spacing {
+    height:50px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: white;
+    padding: 5px;
+}
+
+/************************************** MACRO STUFF **************************************/
+
+/* body * {
+    border: solid rgb(148, 145, 145) 1px;
+} */
+
+.blue {
+    color:rgb(7, 97, 199);
+}
+
+.grey {
+    color: rgb(84, 83, 83);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+    
+}
+
+body {
+    background-color: rgb(237, 237, 237);
+}
+
+@media screen and (max-width: 1100px) {
+    #suggestions {
+      display: none;
+    }
+    #feed {
+        margin-right: 0px;
+    }
+  }
+@media screen and (max-width: 940px) {
+    .modal-bg {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .modal {
+        width: 100%;
+    }
+    .modal-body {
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 655px) {
+    #suggestions {
+      display: none;
+    }
+    main {
+        display: flex;
+        justify-content: flex-start;
+    }
+}

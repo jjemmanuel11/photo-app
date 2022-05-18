@@ -120,7 +120,7 @@ if __name__ == '__main__':
         TestCommentListEndpoint('test_comment_post_unauthorized_post_id_404'),
         TestCommentListEndpoint('test_comment_post_missing_text_400'),
 
-        # # DELETE Tests:
+        # DELETE Tests:
         TestCommentDetailEndpoint('test_comment_delete_valid_200'),
         TestCommentDetailEndpoint('test_comment_delete_invalid_id_format_404'),
         TestCommentDetailEndpoint('test_comment_delete_invalid_id_404'),

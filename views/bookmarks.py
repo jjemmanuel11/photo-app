@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
-from models import Bookmark, db, Post
+from models import Bookmark, Post, db
 import json
 from views import get_authorized_user_ids
 
@@ -14,40 +14,39 @@ class BookmarksListEndpoint(Resource):
         bookmarks = Bookmark.query.filter_by(user_id = self.current_user.id).all()
         bookmarks_json = [bookmark.to_dict() for bookmark in bookmarks]
         return Response(json.dumps(bookmarks_json), mimetype="application/json", status=200)
-       
 
     def post(self):
         # create a new "bookmark" based on the data posted in the body 
+        # create a new "Comment" based on the data posted in the body 
         body = request.get_json()
-
         if not body.get('post_id'):
             return Response(json.dumps({"message": "'post_id' is required"}), mimetype="application/json", status=400)
-        
         try:
             post = Post.query.get(body.get('post_id'))
         except:
-             return Response(json.dumps({"message": "post_id is invalid"}), mimetype="application/json", status=400)
+            # could not convert to int
+            return Response(json.dumps({"message": "id={0} is invalid".format(body.get('post_id'))}), mimetype="application/json", status=400)
         if not post:
-            return Response(json.dumps({"message": "id={0} is invalid ".format(body.get('post_id'))}), mimetype="application/json", status=404)
-        
+            return Response(json.dumps({"message": "id={0} is invalid".format(body.get('post_id'))}), mimetype="application/json", status=404)
+
         user_ids = get_authorized_user_ids(self.current_user)
         if post.user_id not in user_ids:
-            return Response(json.dumps({"message": "id={0} is invalid ".format(body.get('post_id'))}), mimetype="application/json", status=404)
+            return Response(json.dumps({"message": "id={0} is invalid".format(body.get('post_id'))}), mimetype="application/json", status=404)
 
+        # ensure that the bookmark is not a duplicate
         bookmarks = Bookmark.query.filter_by(user_id = self.current_user.id).all()
         for bookmark in bookmarks:
             if post.id == bookmark.post_id:
-                return Response(json.dumps({"message": "post_id is invalid"}), mimetype="application/json", status=400)
-
+                return Response(json.dumps({"message": "bookmark for id={0} already exists".format(post.id)}), mimetype="application/json", status=400)
+        # insert whatever was posted into the database
+        # (also some validation)
         new_bookmark = Bookmark(
-            user_id = self.current_user.id,
-            post_id = body.get('post_id')
+            user_id=self.current_user.id, # must be a valid user_id or will throw an error
+            post_id=body.get('post_id')
         )
         db.session.add(new_bookmark)    # issues the insert statement
-        db.session.commit()  
-    
+        db.session.commit()         # commits the change to the database 
         return Response(json.dumps(new_bookmark.to_dict()), mimetype="application/json", status=201)
-        
 
 class BookmarkDetailEndpoint(Resource):
 
@@ -56,19 +55,16 @@ class BookmarkDetailEndpoint(Resource):
     
     def delete(self, id):
         # delete "bookmark" record where "id"=id
-        print(id)
+        # delete "Comment" record where "id"=id
         bookmark = Bookmark.query.get(id)
         if not bookmark:
-            return Response(json.dumps({"message": "id={0} is invalid ".format(id)}), mimetype="application/json", status=404)
-
+            return Response(json.dumps({"message": "id={0} is invalid".format(id)}), mimetype="application/json", status=404)
         if bookmark.user_id != self.current_user.id:
-            return Response(json.dumps({"message": "id={0} is invalid ".format(id)}), mimetype="application/json", status=404)
-
-
+            return Response(json.dumps({"message": "id={0} is invalid".format(id)}), mimetype="application/json", status=404)
+        
         Bookmark.query.filter_by(id=id).delete()
         db.session.commit()
-        return Response(json.dumps({"message": "comment id = {0} was deleted "}), mimetype="application/json", status=200)
-        
+        return Response(json.dumps({"message": "Bookmark id={0} was successfully deleted.".format(id)}), mimetype="application/json", status=200)
 
 
 

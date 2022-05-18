@@ -18,7 +18,6 @@ class SuggestionsListEndpoint(Resource):
         return Response(json.dumps(suggestions_json), mimetype="application/json", status=200)
 
 
-
 def initialize_routes(api):
     api.add_resource(
         SuggestionsListEndpoint, 

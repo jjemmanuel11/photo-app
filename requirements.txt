@@ -1,13 +1,17 @@
-requests            # for testing
-dnspython            # support for connecting to remote MongoDB
-python-dotenv       # support for environment variables
+Flask==2.0
+requests==2.23.0
+Faker==4.0.3
+gunicorn==20.0.4
+requests
+dnspython
+python-dotenv
 Flask
 Flask-Cors
 Flask-RESTful
 
-psycopg2-binary         # PostgreSQL DB connector
+psycopg2-binary
 SQLAlchemy
-Flask-SQLAlchemy    # Python <--> DB ORM
-pylint-django        # linter help
-Faker               # to install fake data
+Flask-SQLAlchemy
+pylint-django
+Faker
 gunicorn

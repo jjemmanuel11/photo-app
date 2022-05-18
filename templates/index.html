@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Photo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="https://kit.fontawesome.com/c9fed49275.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- client-side scripts -->
+    <script lang="text/javascript" src="/static/js/hw04.js" defer></script>
+</head>
+<body>
+    <!-- Nav Bar still rendered via server-side template -->
+    {% include 'includes/navbar.html' %}
+    <main>
+        <section id="feed">
+            {% include 'includes/stories.html' %}
+            {% include 'includes/posts.html' %}
+        </section>
+        {% include 'includes/suggestions.html' %}
+    </main>
+    {% include 'includes/modal.html' %}
+</body>
+</html>
