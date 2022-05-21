@@ -3,6 +3,7 @@ from flask_restful import Resource
 from models import Following, User, db
 import json
 from views import get_authorized_user_ids
+import flask_jwt_extended
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -11,12 +12,14 @@ class FollowingListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def get(self):
         # return all of the "following" records that the current user is following
         followings = Following.query.filter_by(user_id = self.current_user.id).all() 
         following_json = [following.to_dict_following() for following in followings]
         return Response(json.dumps(following_json), mimetype="application/json", status=200)
 
+    @flask_jwt_extended.jwt_required()
     def post(self):
         # create a new "following" record based on the data posted in the body 
         # create a new post based on the data posted in the body 
@@ -52,6 +55,7 @@ class FollowingDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def delete(self, id):
         # delete "following" record where "id"=id
         following = Following.query.get(id)
@@ -64,9 +68,6 @@ class FollowingDetailEndpoint(Resource):
         db.session.commit()
         return Response(json.dumps({"message": "Following id={0} was successfully deleted.".format(id)}), mimetype="application/json", status=200)
 
-        print(id)
-        return Response(json.dumps({}), mimetype="application/json", status=200)
-
 
 
 
@@ -75,11 +76,11 @@ def initialize_routes(api):
         FollowingListEndpoint, 
         '/api/following', 
         '/api/following/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
     api.add_resource(
         FollowingDetailEndpoint, 
         '/api/following/<int:id>', 
         '/api/following/<int:id>/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

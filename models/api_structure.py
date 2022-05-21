@@ -1,6 +1,7 @@
 import json
 from models import Post, Comment, Bookmark, Following, db, LikePost
 from views import get_authorized_user_ids
+import flask_jwt_extended
 
 class ApiNavigator(object):
     def __init__(self, current_user):
@@ -383,33 +384,74 @@ class ApiNavigator(object):
                 {
                     'id': 'likes-post',
                     'name': 'Add a Like',
-                    'endpoint': '/api/posts/likes/',
-                    'endpoint_example': '/api/posts/likes/'.format(post_id=self.unliked_post_id),
+                    'endpoint': '/api/posts/<post_id>/likes/',
+                    'endpoint_example': '/api/posts/{post_id}/likes/'.format(post_id=self.unliked_post_id),
                     'method': 'POST',
                     'request_description': 'Ensure that the post id of the Post that you want to like is included in the endpoint url (see example below).',
                     'response_description': 'The Like object.',
                     'response_type': 'List',
-                    'parameters': [
-                        {
-                            'name': 'post_id',
-                            'data_type': 'int',
-                            'optional_or_required': 'required',
-                            'description': 'The id of the Post that you would like to like.'
-                        }
-                    ],
-                    'sample_body': json.dumps({
-                        'post_id': self.unliked_post_id
-                    }, indent=4)
+                    'sample_body': json.dumps({}, indent=4)
                 },
                 {
                     'id': 'likes-delete',
                     'name': 'Remove a Like',
-                    'endpoint': '/api/posts/likes/<id>',
-                    'endpoint_example': '/api/posts/likes/{id}'.format(id=self.like.id),
+                    'endpoint': '/api/posts/<post_id>/likes/<id>',
+                    'endpoint_example': '/api/posts/{post_id}/likes/{id}'.format(post_id=self.like.post_id, id=self.like.id),
                     'method': 'DELETE',
                     'request_description': 'Ask to remove a like.',
                     'response_description': 'A message indicating whether or not the Like was successfully removed/',
                     'response_type': 'Message'
+                }
+            ],
+            'Access Tokens': [
+                {
+                    'id': 'get-jwt',
+                    'name': 'Get Access Tokens',
+                    'endpoint': '/api/token/',
+                    'endpoint_example': '/api/token/'.format(post_id=self.unliked_post_id),
+                    'method': 'POST',
+                    'request_description': 'Issues an access and refresh token based on the credentials passed to the API Endpoint',
+                    'response_description': 'Access and Refresh Token.',
+                    'response_type': 'Message',
+                    'parameters': [
+                        {
+                            'name': 'username',
+                            'data_type': 'string',
+                            'optional_or_required': 'required',
+                            'description': 'The username of the person logging in.'
+                        },
+                        {
+                            'name': 'password',
+                            'data_type': 'string',
+                            'optional_or_required': 'required',
+                            'description': 'The password of the person logging in.'
+                        }
+                    ],
+                    'sample_body': json.dumps({
+                        'username': self.current_user.username,
+                        'password': 'password'
+                    }, indent=4)
+                },
+                {
+                    'id': 'get-new-jwt',
+                    'name': 'Refresh Access Token',
+                    'endpoint': '/api/token/refresh/',
+                    'endpoint_example': '/api/token/refresh/',
+                    'method': 'POST',
+                    'request_description': 'Issues new access token.',
+                    'response_description': 'A response that returns a new access token',
+                    'response_type': 'Message',
+                    'parameters': [
+                        {
+                            'name': 'refresh_token',
+                            'data_type': 'string',
+                            'optional_or_required': 'required',
+                            'description': 'The refresh token that was previously issued to the user from the /api/token endpoint.'
+                        }
+                    ],
+                    'sample_body': json.dumps({
+                        'refresh_token': flask_jwt_extended.create_refresh_token(self.current_user.id)
+                    })
                 }
             ]
         }

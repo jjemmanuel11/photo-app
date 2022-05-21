@@ -42,6 +42,10 @@ def initialize_routes(api):
     from .stories import initialize_routes as init_story_routes
     from .suggestions import initialize_routes as init_suggestion_routes
     
+    # new:
+    from .authentication import initialize_routes as init_authentication_routes
+    from .token import initialize_routes as init_token_routes
+    
     init_bookmark_routes(api)
     init_comment_routes(api)
     init_follower_routes(api)
@@ -51,4 +55,8 @@ def initialize_routes(api):
     init_profile_routes(api)
     init_story_routes(api)
     init_suggestion_routes(api)
+
+    # new:
+    init_authentication_routes(api.app)
+    init_token_routes(api)
         

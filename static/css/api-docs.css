@@ -38,7 +38,7 @@ header {
     margin-top: 20px;
 }
 
-.main-nav {
+#Navigation {
     position: fixed;
     height: 70px;
     width: 100vw;
@@ -55,6 +55,10 @@ header {
     align-items: center;
     justify-content: space-between;
 }
+
+.main-nav section {
+    display: flex;
+}
 .tabs, .tabs ul {
     display: flex;
     align-items: center;
@@ -65,7 +69,7 @@ header {
     list-style-type: none;
     margin: 20px 0px;
 }
-.main-nav li {
+.main-nav li,.main-nav p {
     margin-left: 30px;
 }
 .tabs li {
@@ -294,4 +298,19 @@ code.active {
 @keyframes colorFade {
     from { background: #dbe6e4; }
     to   { background: white; }
+}
+
+button {
+    background: none;
+    border: 0;
+}
+textarea {
+    background: none;
+    border: 0;
+    outline: none;
+    resize: none;
+}
+textarea[type="text"] {
+    width: 525px;
+    font-family: 'Open Sans', sans-serif;
 }

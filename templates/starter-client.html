@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Photos + Friends</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="https://kit.fontawesome.com/c9fed49275.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/starter-client.css">
+
+    <!-- client-side scripts -->
+    <script lang="text/javascript" src="/static/js/hw04.js" defer></script>
+</head>
+<body>
+    <!-- Nav Bar still rendered via server-side template -->
+    {% include 'includes/navbar.html' %}
+    <main>
+        <section id="feed">
+            <section id="stories"></section>
+            <div id="posts"></div>
+        </section>
+        <section id="suggestions">
+            <section id="my_profile">
+                <img src="{{user.thumb_url}}" alt="{{user.username}} profile picture">
+                <h2>{{user.username}}</h2>
+            </section>
+            <p id="suggestion">Suggestions for you</p>
+            <section id="other_profiles">
+        
+            </section>
+        </section>
+        
+    </main>
+    <div class="modal-bg hidden" aria-hidden="true" role="dialog">
+        <section class="modal">
+            <button class="close" aria-label="Close the modal window" onclick="closeModal(event);"><i class="fas fa-x fa-xl"></i></button>
+            <div class="modal-body">
+                
+            </div>
+        </section>
+    </div>
+</body>
+</html>

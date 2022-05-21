@@ -1,7 +1,17 @@
 <section id="Navigation">
     <h1>Photos + Friends</h1>
-    <section>
-        <p>{{user.username}}</p>            
-        <p class="blue">Sign out</p>
-    </section>
+        {% if user %}
+            <!-- <li>
+                {% if request.url_rule.endpoint == 'api_docs' %}
+                    <a href="/">Home</a>
+                {% else %}
+                    <a href="/api">API Docs</a>
+                {% endif %}
+            </li> -->
+            <section>
+                <p>{{ user.username }}</p>
+                <p><a href="/logout" class="blue">Sign out</a></p>
+            </section>
+            
+        {% endif %}
 </section>

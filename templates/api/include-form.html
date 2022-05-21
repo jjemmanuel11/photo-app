@@ -5,7 +5,11 @@
 <label class="tab" for="tab2_{{ item.id }}">JavaScript</label>
 
 <input class="tab3" id="tab3_{{ item.id }}" type="radio" name="tabs_{{ item.id }}">
-<label class="tab" for="tab3_{{ item.id }}">Python</label>
+<label class="tab" for="tab3_{{ item.id }}">JavaScript (external)</label>
+
+<input class="tab4" id="tab4_{{ item.id }}" type="radio" name="tabs_{{ item.id }}">
+<label class="tab" for="tab4_{{ item.id }}">Python</label>
+
 
 <section class="content1">
     <label class="tester" style="padding-top:10px;" for="{{ item.id }}">Endpoint</label>
@@ -28,13 +32,15 @@
 
 </section>
 <section class="content2">
-
+    <h4>Same Origin: Cookie + CSRF</h4>
+    <p>If the request happens on the same origin, then the <strong>X-CSRF-TOKEN</strong> is passed in conjunction with the <strong>access_token_cookie</strong> cookie.</p>
     <pre class="tester"><code class="language-javascript">{% if item.method in ['POST', 'PATCH'] %}const postData = {{ item.sample_body }};
 
 {% endif %}fetch("{{ url_root }}{{ item.endpoint_example }}", {
         method: "{{ item.method }}",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf }}'
         }{% if item.method in ['POST', 'PATCH'] %},
         body: JSON.stringify(postData){% endif %}
     })
@@ -46,6 +52,26 @@
 </section>   
 
 <section class="content3">
+    <h4>Different Origin: No Cookies</h4>
+    <p>If the request happens on a different origin, then no cookies are used, and the token is passed as an "Authorization" header using "Bearer" authentication.</p>
+    <pre class="tester"><code class="language-javascript">{% if item.method in ['POST', 'PATCH'] %}const postData = {{ item.sample_body }};
+
+{% endif %}fetch("{{ url_root }}{{ item.endpoint_example }}", {
+        method: "{{ item.method }}",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer {{ access_token }}'
+        }{% if item.method in ['POST', 'PATCH'] %},
+        body: JSON.stringify(postData){% endif %}
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });</code></pre>
+
+</section>   
+
+<section class="content4">
 
     <pre class="tester"><code class="language-python">import requests
 {% if item.method in ['POST', 'PATCH'] %}
@@ -53,12 +79,18 @@ post_data = {{ item.sample_body }};
 
 response = requests.{{ item.method|lower }}(
     '{{ url_root }}{{ item.endpoint_example }}', 
-    json=post_data
+    json=post_data,
+    headers={
+        'Authorization': 'Bearer {{ access_token }}'
+    }
 )
 print('Status Code:', response.status_code)
 print(response.json()){% else %}
 response = requests.{{ item.method|lower }}(
-    '{{ url_root }}{{ item.endpoint_example }}'
+    '{{ url_root }}{{ item.endpoint_example }}',
+    headers={
+        'Authorization': 'Bearer {{ access_token }}'
+    }
 )
 print('Status Code:', response.status_code)
 print(response.json()){% endif %}</code></pre>
